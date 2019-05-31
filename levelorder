@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+struct tree
+{
+int data;
+struct tree* left;
+struct tree* right;
+};
+
+int height(tree *root)
+{	
+	if(root==NULL)
+	return 0;
+	else return max(height(root->left)+1, height(root->right)+1);
+}
+
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+void givenlevelorder(tree *root,int level)
+{
+		if(root==NULL)
+		return;
+		if(level==1)
+			cout<<root->data<<" ";
+		else
+		{	
+			givenlevelorder(root->left,level-1);
+			givenlevelorder(root->right,level-1);
+		}	
+}
+void levelorder(tree *root)
+{
+	int h=height(root);
+	for(int i=1;i<=h;i++)
+	{
+		givenlevelorder(root,i);	
+		cout<<"\n";
+	}
+}
+int main(void) 
+{
+	struct tree* root=new_node(10);
+	root->left=new_node(20);
+	root->right=new_node(30);
+	root->left->right=new_node(25);
+	root->left->left=new_node(35);
+	levelorder(root);
+	return 0;
+}
