@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+struct tree
+{
+int data;
+struct tree* left;
+struct tree* right;
+};
+
+
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+void mirror(tree *root)
+{
+	struct tree *temp;
+	if(root!=NULL)
+			{
+			mirror(root->left);
+			mirror(root->right);
+			temp=root->left;
+			root->left=root->right;
+			root->right=temp;}
+
+}
+
+void inorder(tree *root)
+{
+	if(root==NULL)
+	return;
+	else
+	{
+		inorder(root->left);
+		cout<<root->data<<" ";
+		inorder(root->right);
+	}
+	
+}
+
+int main(void) 
+{
+	struct tree* root=new_node(10);
+	root->left=new_node(20);
+	root->right=new_node(30);
+	root->left->right=new_node(25);
+	root->left->left=new_node(35);
+	mirror(root);
+	inorder(root);
+	return 0;
+}
