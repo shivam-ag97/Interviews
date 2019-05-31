@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+struct tree
+{
+int data;
+struct tree* left;
+struct tree* right;
+};
+
+void inorder(struct tree* root)
+{
+	if(root!=NULL)
+	{
+		inorder(root->left);
+		cout<<root->data<<"  ";
+		inorder(root->right);
+	}
+}
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+int main(void) {
+	struct tree* root=new_node(10);
+	root->left=new_node(20);
+	root->right=new_node(30);
+	root->left->right=new_node(25);
+	inorder(root);
+	return 0;
+}
