@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include<iostream>
+using namespace std;
+struct tree
+{
+int data;
+struct tree* left;
+struct tree* right;
+};
+int max(int a,int b)
+{if(a>=b)
+return a;
+else return b;
+}
+int height(tree *root)
+{	
+	if(root==NULL)
+	return 0;
+	else return max(height(root->left)+1, height(root->right)+1);
+
+}	
+
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+int main(void) {
+	struct tree* root=new_node(10);
+	root->left=new_node(20);
+	root->right=new_node(30);
+	root->left->right=new_node(25);
+	cout<<height(root);
+	return 0;
+}
