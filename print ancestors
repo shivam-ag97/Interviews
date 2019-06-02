@@ -1,0 +1,63 @@
+#include <iostream>
+#include<list>
+#include <iterator> 
+using namespace std;
+struct tree
+{
+	int data;
+	tree* left;
+	tree *right;
+};
+void showlist(list <int> g) 
+{ 
+    list <int> :: iterator it; 
+    for(it = g.begin(); it != g.end(); ++it) 
+        cout << '\t' << *it; 
+    cout << '\n'; 
+	//cout<<"Aa";
+} 
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+bool print_ancestor(tree *root,int s,list <int>& l)
+{ 
+	if(root==NULL)
+			return root;
+	
+	if(root->data==s)
+		{
+		l.push_front(root->data);
+		return true;
+		}
+	if(print_ancestor(root->left,s,l))
+	{	
+		l.push_front(root->data);
+		return true;
+	}
+	if(print_ancestor(root->right,s,l))
+	{
+		l.push_front(root->data);
+		return true;
+	}
+	return false;
+}
+int main() {
+		list <int> l;
+		struct tree* root=new_node(1);
+		root->left=new_node(2);
+		root->right=new_node(3);
+		root->left->left=new_node(4);
+		root->left->right=new_node(5);
+		root->right->left=new_node(6);
+		root->right->right=new_node(7);
+		print_ancestor(root,6,l);
+		//cout<<l.size();
+		showlist(l);
+	return 0;
+}
