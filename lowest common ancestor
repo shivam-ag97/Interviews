@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+struct tree
+{
+	int data;
+	tree* left;
+	tree *right;
+};
+
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+int lowest_ancestor(tree* root,int a, int b)
+{
+	if(root==NULL)
+	return NULL;
+	if(root->data==a || root->data==b)
+	return root->data;
+	int l=lowest_ancestor(root->left,a,b);
+	int r=lowest_ancestor(root->right,a,b);
+	if(l==NULL&&r==NULL)
+	return NULL;
+	else if(l!=NULL&&r==NULL)
+	return l;
+	else if(l==NULL && r!=NULL)
+	return r;
+	else return root->data;
+	
+	
+}
+
+int main() {
+	struct tree* root=new_node(1);
+	root->left=new_node(2);
+	root->right=new_node(3);
+		root->left->left=new_node(4);
+		root->left->right=new_node(5);
+	root->right->left=new_node(6);
+	root->right->right=new_node(7);
+	cout<<lowest_ancestor(root,4,6);
+	
+	
+	return 0;
+}
