@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+struct tree
+{
+	int data;
+	tree* left;
+	tree *right;
+};
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+
+int dist(tree *root,int k)
+{ 	
+	int d=-1;
+	if(root==NULL)
+		return -1;
+	if(root->data==k)
+		return d+1;
+	int l=dist(root->left,k);
+	int r=dist(root->right,k);
+	if(l>=0)
+		return l+1;
+	if(r>=0)
+		return r+1;
+	
+	return -1;
+}
+int main() {
+	
+		struct tree* root=new_node(1);
+		root->left=new_node(2);
+		root->right=new_node(3);
+		root->left->left=new_node(4);
+		root->left->right=new_node(5);
+		root->right->left=new_node(6);
+		root->right->left->right=new_node(8);
+		root->right->right=new_node(7);
+		cout<<dist(root,9);
+	return 0;
+}
