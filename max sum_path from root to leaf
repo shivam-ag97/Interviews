@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+struct tree
+{
+	int data;
+	tree* left;
+	tree *right;
+};
+struct tree* new_node(int d)
+{
+	struct tree *root=(struct tree*)malloc(sizeof(struct tree*));
+	root->data=d;
+	root->left=NULL;
+	root->right=NULL;
+	return root;
+}
+int max(int a,int b)
+{
+	if(a>=b) return a;
+	else return b;
+}
+
+int max_sum(tree *root)
+{ 	
+	if(root==NULL)
+		return 0;
+		int l=max_sum(root->left);
+		int r=max_sum(root->right);
+		return max(l+root->data,r+root->data);
+}
+int main() {
+	
+		struct tree* root=new_node(1);
+		root->left=new_node(2);
+		root->right=new_node(3);
+		root->left->left=new_node(-4);
+		root->left->right=new_node(5);
+		root->right->left=new_node(-6);
+		root->right->left->right=new_node(8);
+		root->right->right=new_node(7);
+		cout<<max_sum(root);
+	return 0;
+}
