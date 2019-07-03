@@ -1,0 +1,29 @@
+int largest(Node *root)
+    {   if(root==NULL)
+        return -999999;
+        else {
+            while(root->right!=NULL)
+            root=root->right;
+        }
+     return root->data;
+    }
+int smallest(Node *root)
+    {   if(root==NULL)
+        return 999999;
+        else {
+            while(root->left!=NULL)
+            root=root->left;
+        }
+     return root->data;
+    }
+	bool checkBST(Node* root) {
+        if(root==NULL)
+            return true;
+                bool left=checkBST(root->left);
+                bool right=checkBST(root->right);
+                    if(left&&right)
+                    if(largest(root->left)<root->data && smallest(root->right)>root->data)
+                    return true;
+                   
+            return false;
+	}
