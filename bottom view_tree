@@ -1,0 +1,35 @@
+#include<unordered_map>
+unordered_map<int,int> bv;
+int minimum=0,maximum=0;
+void bvutil(Node *root,int level)
+{
+    if(!root)
+    return;
+    
+    if(level<minimum)
+    minimum=level;
+    else if(level>maximum)
+        maximum=level;
+        
+    bv[level]=root->data;
+    
+    bvutil(root->left,level-1);
+    bvutil(root->right,level+1);
+}
+void bottomView(Node *root)
+{
+    bvutil(root,0);
+    //std::map<int, int> ordered(unordered.begin(), unordered.end());
+    // unordered_map<int,int>:: iterator itr; 
+    // for (itr = bv.begin(); itr != bv.end(); itr++) 
+    // {  
+    //     cout <<itr->second<<" "; 
+    // }
+     for(int i=minimum;i<=maximum;i++)
+     cout<<bv[i]<<" ";
+     
+     bv.clear();
+     minimum=0;
+     maximum=0;
+     
+}
