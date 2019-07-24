@@ -1,0 +1,50 @@
+#include<queue>
+#include<unordered_map>
+int l=9999,r=-9999;
+    void topView(Node * root) {
+
+        if(!root)
+        return;
+
+        queue<pair<Node*,int>> q;
+        unordered_map<int,int> map;
+
+        q.push(make_pair(root,0));
+
+        while(!q.empty())
+        {
+
+            pair<Node*,int> p=q.front();
+            Node* t=p.first;
+            int val=p.second;
+            q.pop();
+
+            if(map.find(val)==map.end())
+            {
+                map[val]=t->data;
+                //cout<<t->data<<" ";
+            }
+
+            if(t->left)
+            {
+                q.push(make_pair(t->left,val-1));
+                //l=val-1;
+            }
+            if(t->right)
+            {
+                q.push(make_pair(t->right,val+1));
+                //r=val+1;
+            }
+        }
+        unordered_map<int, int>:: iterator p;
+        for(p=map.begin();p!=map.end();p++)
+        {
+            if(l>p->first)
+            l=p->first;
+
+            if(r<p->first)
+            r=p->first;
+        }
+        for(int i=l;i<=r;i++)
+        cout<<map[i]<<" ";
+    }
