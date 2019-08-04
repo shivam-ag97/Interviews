@@ -1,0 +1,53 @@
+ int lca_util(TreeNode* A, int B, int C, bool &b,bool &c)
+ {
+     if(!A)
+return -1;
+
+if(A->val==B)
+{
+    b=true;
+    return A->val;
+}
+if(A->val==C)
+{
+    c=true;
+    return A->val;
+}
+
+int l=lca_util(A->left,B,C,b,c);
+int r=lca_util(A->right,B,C,b,c);
+
+if(l==-1 && r==-1)
+return -1;
+
+if(l!=-1 && r==-1)
+return l;
+
+if(l==-1 && r!=-1)
+return r;
+
+if(l!=-1 && r!=-1)
+return A->val;
+ }
+ 
+bool find_node(TreeNode* A,int v)
+{
+    if(!A)
+    return false;
+    
+    if(A->val==v||find_node(A->left,v)||find_node(A->right,v))
+    return true;
+    
+    return false;
+}
+int Solution::lca(TreeNode* A, int B, int C) {
+    
+    bool b=false,c=false;
+    
+    int result=lca_util(A,B,C,b,c);
+    
+    if(b&&c || b&&find_node(A,C) || c&&find_node(A,B))
+    return result;
+    
+    return -1;
+}
