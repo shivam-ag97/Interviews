@@ -1,0 +1,25 @@
+long long res=0;
+ void sumr2l(TreeNode* A,long long cur)
+ {
+     if(!A)
+     return;
+     
+     if(!A->left && !A->right)
+     {
+         cur=cur+A->val;
+         res+=cur;
+         return;
+     }
+     
+     cur=((cur+A->val)*10)%1003;
+     sumr2l(A->left,cur);
+     sumr2l(A->right,cur);
+     
+     
+ }
+int Solution::sumNumbers(TreeNode* A) {
+    
+    res=0;
+    sumr2l(A,0);
+    return res%1003;
+}
